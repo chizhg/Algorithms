@@ -1,7 +1,7 @@
 package edu.neu.graph.basic;
 
-import edu.neu.graph.basic.models.Color;
-import edu.neu.graph.basic.models.Node;
+import edu.neu.graph.models.Color;
+import edu.neu.graph.models.Vertex;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,59 +12,59 @@ import java.util.List;
 public class DepthFirstSearch {
     int time = 0;
 
-    public void solve(List<Node> nodes) {
-        for (Node node : nodes) {
-            if (node.color == Color.WHITE) {
-                visit(node);
+    public void solve(List<Vertex> vertices) {
+        for (Vertex vertex : vertices) {
+            if (vertex.color == Color.WHITE) {
+                visit(vertex);
             }
         }
     }
 
-    private void visit(Node node) {
-        time++;     // white node has just been discovered
-        node.discoverTime = time;
-        node.color = Color.GRAY;
+    private void visit(Vertex vertex) {
+        time++;     // white vertex has just been discovered
+        vertex.discoverTime = time;
+        vertex.color = Color.GRAY;
 
-        for (Node neighbor : node.neighbors) {    // explore edge (node, neighbor)
+        for (Vertex neighbor : vertex.neighbors) {    // explore edge (vertex, neighbor)
             if (neighbor.color == Color.WHITE) {
-                neighbor.parent = node;
+                neighbor.parent = vertex;
                 visit(neighbor);
             }
         }
 
-        node.color = Color.BLACK;    // black node; it is finished
+        vertex.color = Color.BLACK;    // black vertex; it is finished
         time++;
-        node.finishTime = time;
+        vertex.finishTime = time;
     }
 
     public static void main(String[] args) {
-        Node node1 = new Node(1);
-        Node node2 = new Node(2);
-        Node node3 = new Node(3);
-        Node node4 = new Node(4);
-        Node node5 = new Node(5);
-        Node node6 = new Node(6);
+        Vertex vertex1 = new Vertex(1);
+        Vertex vertex2 = new Vertex(2);
+        Vertex vertex3 = new Vertex(3);
+        Vertex vertex4 = new Vertex(4);
+        Vertex vertex5 = new Vertex(5);
+        Vertex vertex6 = new Vertex(6);
 
-        node1.neighbors.add(node2);
-        node1.neighbors.add(node3);
-        node2.neighbors.add(node4);
-        node4.neighbors.add(node5);
-        node3.neighbors.add(node6);
-        node6.neighbors.add(node1);
+        vertex1.neighbors.add(vertex2);
+        vertex1.neighbors.add(vertex3);
+        vertex2.neighbors.add(vertex4);
+        vertex4.neighbors.add(vertex5);
+        vertex3.neighbors.add(vertex6);
+        vertex6.neighbors.add(vertex1);
 
-        List<Node> graph = new ArrayList<>();
-        graph.add(node1);
-        graph.add(node2);
-        graph.add(node3);
-        graph.add(node4);
-        graph.add(node5);
-        graph.add(node6);
+        List<Vertex> graph = new ArrayList<>();
+        graph.add(vertex1);
+        graph.add(vertex2);
+        graph.add(vertex3);
+        graph.add(vertex4);
+        graph.add(vertex5);
+        graph.add(vertex6);
 
         DepthFirstSearch depthFirstSearch = new DepthFirstSearch();
         depthFirstSearch.solve(graph);
 
-        for (Node node : graph) {
-            System.out.println("node" + node.label + ": " + node.discoverTime + "/" + node.finishTime);
+        for (Vertex vertex : graph) {
+            System.out.println("vertex" + vertex.label + ": " + vertex.discoverTime + "/" + vertex.finishTime);
         }
     }
 }

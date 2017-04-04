@@ -1,13 +1,25 @@
 package edu.neu.graph.SSSP;
 
+import edu.neu.graph.models.Edge;
+import edu.neu.graph.models.Graph;
+import edu.neu.graph.models.Vertex;
+
 import java.lang.*;
 import java.util.Arrays;
 import java.util.List;
 
+/*
+    The Bellman-Ford algorithm solves the single-source shortest-paths problem
+    in the general case in which edge weights may be negative.
+
+    Core idea is to relax each edge for |V|-1 times.
+
+    O(V*E) running time
+*/
 public class BellmanFord {
     public boolean solve(Graph graph, Vertex src) {
         // Step 1: Initialize distances from src to all other
-        // vertices as INFINITE
+        // vertices as INFINITE, and to itself as 0
         for (int i = 0; i < graph.V.size(); i++) {
             graph.V.get(i).distance = Integer.MAX_VALUE;
         }
@@ -22,6 +34,7 @@ public class BellmanFord {
                 Vertex u = edge.src;
                 Vertex v = edge.dest;
                 int weight = edge.weight;
+                // RELAXATION
                 if (u.distance != Integer.MAX_VALUE && u.distance + weight < v.distance) {
                     v.distance = u.distance + weight;
                 }

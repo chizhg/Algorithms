@@ -26,22 +26,19 @@ public class UnionFind {
         }
     }
 
-    public Node getNode(int label) {
-        return nodeMap.get(label);
-    }
-
-    public Node find(Node node) {
+    public Node find(int label) {
+        Node node = nodeMap.get(label);
         if (node != node.parent) {
-            node.parent = find(node.parent);
+            node.parent = find(node.parent.label);
         }
 
         return node.parent;
     }
 
 
-    public void union(Node n1, Node n2) {
-        Node np1 = find(n1);
-        Node np2 = find(n2);
+    public void union(int label1, int label2) {
+        Node np1 = find(label1);
+        Node np2 = find(label2);
 
         if (np1.rank > np2.rank) {
             np2.parent = np1;

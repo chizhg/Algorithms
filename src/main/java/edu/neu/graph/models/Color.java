@@ -1,4 +1,4 @@
-package edu.neu.graph.basic.models;
+package edu.neu.graph.models;
 
 /**
  * Created by HappyMole on 4/3/17.

@@ -1,40 +1,14 @@
 package edu.neu.graph.MST.kruskal;
 
+import edu.neu.graph.models.Edge;
+import edu.neu.graph.models.Graph;
+import edu.neu.graph.models.Vertex;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-class Vertex {
-    int label;
-    public Vertex(int label) {
-        this.label = label;
-    }
-}
-
-
-class Graph {
-    List<Vertex> vertices;
-    List<Edge> edges;
-
-    public Graph(List<Vertex> vertices, List<Edge> edges) {
-        this.vertices = vertices;
-        this.edges = edges;
-    }
-}
-
-class Edge {
-    int src;
-    int dest;
-    int weight;
-
-    public Edge(int src, int dest, int weight) {
-        this.src = src;
-        this.dest = dest;
-        this.weight = weight;
-    }
-}
-
-public class MSTKruskal {
+public class Kruskal {
     public static void main(String[] args) {
         /*
         original graph:
@@ -69,35 +43,42 @@ public class MSTKruskal {
 
         List<Vertex> vertices = new ArrayList<>();
         List<Edge> edges = new ArrayList<>();
+        Vertex vertex0 = new Vertex(0);
+        Vertex vertex1 = new Vertex(1);
+        Vertex vertex2 = new Vertex(2);
+        Vertex vertex3 = new Vertex(3);
+        Vertex vertex4 = new Vertex(4);
+        Vertex vertex5 = new Vertex(5);
+        Vertex vertex6 = new Vertex(6);
 
         vertices.add(new Vertex(0));
         vertices.add(new Vertex(1));
-        edges.add(new Edge(0, 1, 4));
+        edges.add(new Edge(vertex0, vertex1, 4));
 
         vertices.add(new Vertex(2));
-        edges.add(new Edge(0, 2, 9));
-        edges.add(new Edge(1, 2, 11));
+        edges.add(new Edge(vertex0, vertex2, 9));
+        edges.add(new Edge(vertex1, vertex2, 11));
 
         vertices.add(new Vertex(3));
-        edges.add(new Edge(2, 3, 7));
+        edges.add(new Edge(vertex2, vertex3, 7));
 
         vertices.add(new Vertex(4));
-        edges.add(new Edge(1, 4, 8));
-        edges.add(new Edge(3, 4, 2));
+        edges.add(new Edge(vertex1, vertex4, 8));
+        edges.add(new Edge(vertex3, vertex4, 2));
 
         vertices.add(new Vertex(5));
-        edges.add(new Edge(2, 5, 1));
-        edges.add(new Edge(3, 5, 6));
+        edges.add(new Edge(vertex2, vertex5, 1));
+        edges.add(new Edge(vertex3, vertex5, 6));
 
         vertices.add(new Vertex(6));
-        edges.add(new Edge(4, 6, 4));
-        edges.add(new Edge(5, 6, 2));
+        edges.add(new Edge(vertex4, vertex6, 4));
+        edges.add(new Edge(vertex5, vertex6, 2));
 
         Graph graph = new Graph(vertices, edges);
-        List<Edge> result = new MSTKruskal().solve(graph);
+        List<Edge> result = new Kruskal().solve(graph);
 
         for (Edge edge : result) {
-            System.out.println(edge.src + "-->" + edge.dest);
+            System.out.println(edge.src.label + "-->" + edge.dest.label);
         }
     }
 
@@ -105,21 +86,21 @@ public class MSTKruskal {
         List<Edge> result = new ArrayList<>();
 
         List<Integer> labels = new ArrayList<>();
-        for (Vertex vertex : graph.vertices) {
+        for (Vertex vertex : graph.V) {
             labels.add(vertex.label);
         }
         UnionFind unionFind = new UnionFind(labels);
 
-        List<Edge> edges = graph.edges;
+        List<Edge> edges = graph.E;
         Collections.sort(edges, (e1, e2) -> (e1.weight - e2.weight));
 
         for (Edge edge : edges) {
-            Node srcNode = unionFind.getNode(edge.src);
-            Node destNode = unionFind.getNode(edge.dest);
+            int srcLabel = edge.src.label;
+            int destLabel = edge.dest.label;
 
-            if (unionFind.find(srcNode) != unionFind.find(destNode)) {
+            if (unionFind.find(srcLabel) != unionFind.find(destLabel)) {
                 result.add(edge);
-                unionFind.union(srcNode, destNode);
+                unionFind.union(srcLabel, destLabel);
             }
         }
 

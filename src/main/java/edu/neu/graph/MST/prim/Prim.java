@@ -1,37 +1,16 @@
 package edu.neu.graph.MST.prim;
 
+import edu.neu.graph.models.Graph;
+import edu.neu.graph.models.Vertex;
 import edu.neu.heap.fibonacci_heap.FibonacciHeap;
 import edu.neu.heap.fibonacci_heap.Node;
 
 import java.util.*;
 
-class Vertex {
-    int label;
-    int key;
-    Vertex parent;
-
-    List<Vertex> neighbors;
-    Map<Vertex, Integer> weightMap;
-
-    public Vertex(int label) {
-        this.label = label;
-        neighbors = new ArrayList<>();
-        weightMap = new HashMap<>();
-    }
-}
-
-class Graph {
-    public List<Vertex> vertices;
-
-    public Graph(List<Vertex> vertices) {
-        this.vertices = vertices;
-    }
-}
-
-public class MSTPrim {
+public class Prim {
     public void solve(Graph graph, Vertex startNode) {
         Map<Integer, Vertex> vertexMap = new HashMap<>();
-        for (Vertex vertex : graph.vertices) {
+        for (Vertex vertex : graph.V) {
             vertex.key = Integer.MAX_VALUE;
             vertex.parent = null;
             vertexMap.put(vertex.label, vertex);
@@ -39,7 +18,7 @@ public class MSTPrim {
 
         startNode.key = 0;
         FibonacciHeap heap = FibonacciHeap.makeHeap();
-        for (Vertex vertex : graph.vertices) {
+        for (Vertex vertex : graph.V) {
             heap.insert(new Node(vertex.label, vertex.key));
         }
 
@@ -129,8 +108,8 @@ public class MSTPrim {
         vertices.add(vertex5);
 
         Graph graph = new Graph(vertices);
-        new MSTPrim().solve(graph, vertex1);
-        for (Vertex vertex : graph.vertices) {
+        new Prim().solve(graph, vertex1);
+        for (Vertex vertex : graph.V) {
             if (vertex.parent != null) {
                 System.out.println(vertex.label + "---" + vertex.parent.label);
             }
