@@ -8,37 +8,6 @@ import edu.neu.heap.fibonacci_heap.Node;
 import java.util.*;
 
 public class Prim {
-    public void solve(Graph graph, Vertex startNode) {
-        Map<Integer, Vertex> vertexMap = new HashMap<>();
-        for (Vertex vertex : graph.V) {
-            vertex.key = Integer.MAX_VALUE;
-            vertex.parent = null;
-            vertexMap.put(vertex.label, vertex);
-        }
-
-        startNode.key = 0;
-        FibonacciHeap heap = FibonacciHeap.makeHeap();
-        for (Vertex vertex : graph.V) {
-            heap.insert(new Node(vertex.label, vertex.key));
-        }
-
-        Set<Vertex> visited = new HashSet<>();
-        while (heap.size() != 0) {
-            Node node = heap.extractMin();
-            int label = node.label;
-            Vertex vertex = vertexMap.get(label);
-            for (Vertex neighbor : vertex.neighbors) {
-                int weight = vertex.weightMap.get(neighbor);
-                if (!visited.contains(neighbor) && weight < neighbor.key) {
-                    neighbor.parent = vertex;
-                    Node neighborNode = heap.searchByLabel(neighbor.label);
-                    heap.decreaseKey(neighborNode, weight);
-                    neighbor.key = weight;
-                }
-            }
-        }
-    }
-
     public static void main(String[] args) {
         /*
         original graph
@@ -112,6 +81,37 @@ public class Prim {
         for (Vertex vertex : graph.V) {
             if (vertex.parent != null) {
                 System.out.println(vertex.label + "---" + vertex.parent.label);
+            }
+        }
+    }
+
+    public void solve(Graph graph, Vertex startNode) {
+        Map<Integer, Vertex> vertexMap = new HashMap<>();
+        for (Vertex vertex : graph.V) {
+            vertex.key = Integer.MAX_VALUE;
+            vertex.parent = null;
+            vertexMap.put(vertex.label, vertex);
+        }
+
+        startNode.key = 0;
+        FibonacciHeap heap = FibonacciHeap.makeHeap();
+        for (Vertex vertex : graph.V) {
+            heap.insert(new Node(vertex.label, vertex.key));
+        }
+
+        Set<Vertex> visited = new HashSet<>();
+        while (heap.size() != 0) {
+            Node node = heap.extractMin();
+            int label = node.label;
+            Vertex vertex = vertexMap.get(label);
+            for (Vertex neighbor : vertex.neighbors) {
+                int weight = vertex.weightMap.get(neighbor);
+                if (!visited.contains(neighbor) && weight < neighbor.key) {
+                    neighbor.parent = vertex;
+                    Node neighborNode = heap.searchByLabel(neighbor.label);
+                    heap.decreaseKey(neighborNode, weight);
+                    neighbor.key = weight;
+                }
             }
         }
     }

@@ -10,6 +10,29 @@ import java.util.Queue;
  * Created by HappyMole on 4/1/17.
  */
 public class BreadthFirstSearch {
+    public static void main(String[] args) {
+        Vertex vertex1 = new Vertex(1);
+        Vertex vertex2 = new Vertex(2);
+        Vertex vertex3 = new Vertex(3);
+        Vertex vertex4 = new Vertex(4);
+        Vertex vertex5 = new Vertex(5);
+        Vertex vertex6 = new Vertex(6);
+
+        vertex1.neighbors.add(vertex2);
+        vertex1.neighbors.add(vertex3);
+        vertex2.neighbors.add(vertex4);
+        vertex4.neighbors.add(vertex5);
+        vertex3.neighbors.add(vertex6);
+        vertex6.neighbors.add(vertex1);
+
+        BreadthFirstSearch breadthFirstSearch = new BreadthFirstSearch();
+        breadthFirstSearch.solve(vertex1);
+
+        StringBuilder pathBuilder = new StringBuilder();
+        breadthFirstSearch.printPath(vertex1, vertex5, pathBuilder);
+        System.out.println(pathBuilder.toString());
+    }
+
     public void solve(Vertex vertex) {
         vertex.color = Color.GRAY;
         vertex.distance = 0;
@@ -42,28 +65,5 @@ public class BreadthFirstSearch {
             printPath(src, dest.parent, pathBuilder);
             pathBuilder.insert(0, dest.label + "->");
         }
-    }
-
-    public static void main(String[] args) {
-        Vertex vertex1 = new Vertex(1);
-        Vertex vertex2 = new Vertex(2);
-        Vertex vertex3 = new Vertex(3);
-        Vertex vertex4 = new Vertex(4);
-        Vertex vertex5 = new Vertex(5);
-        Vertex vertex6 = new Vertex(6);
-
-        vertex1.neighbors.add(vertex2);
-        vertex1.neighbors.add(vertex3);
-        vertex2.neighbors.add(vertex4);
-        vertex4.neighbors.add(vertex5);
-        vertex3.neighbors.add(vertex6);
-        vertex6.neighbors.add(vertex1);
-
-        BreadthFirstSearch breadthFirstSearch = new BreadthFirstSearch();
-        breadthFirstSearch.solve(vertex1);
-
-        StringBuilder pathBuilder = new StringBuilder();
-        breadthFirstSearch.printPath(vertex1, vertex5, pathBuilder);
-        System.out.println(pathBuilder.toString());
     }
 }

@@ -12,31 +12,6 @@ import java.util.List;
 public class DepthFirstSearch {
     int time = 0;
 
-    public void solve(List<Vertex> vertices) {
-        for (Vertex vertex : vertices) {
-            if (vertex.color == Color.WHITE) {
-                visit(vertex);
-            }
-        }
-    }
-
-    private void visit(Vertex vertex) {
-        time++;     // white vertex has just been discovered
-        vertex.discoverTime = time;
-        vertex.color = Color.GRAY;
-
-        for (Vertex neighbor : vertex.neighbors) {    // explore edge (vertex, neighbor)
-            if (neighbor.color == Color.WHITE) {
-                neighbor.parent = vertex;
-                visit(neighbor);
-            }
-        }
-
-        vertex.color = Color.BLACK;    // black vertex; it is finished
-        time++;
-        vertex.finishTime = time;
-    }
-
     public static void main(String[] args) {
         Vertex vertex1 = new Vertex(1);
         Vertex vertex2 = new Vertex(2);
@@ -66,5 +41,30 @@ public class DepthFirstSearch {
         for (Vertex vertex : graph) {
             System.out.println("vertex" + vertex.label + ": " + vertex.discoverTime + "/" + vertex.finishTime);
         }
+    }
+
+    public void solve(List<Vertex> vertices) {
+        for (Vertex vertex : vertices) {
+            if (vertex.color == Color.WHITE) {
+                visit(vertex);
+            }
+        }
+    }
+
+    private void visit(Vertex vertex) {
+        time++;     // white vertex has just been discovered
+        vertex.discoverTime = time;
+        vertex.color = Color.GRAY;
+
+        for (Vertex neighbor : vertex.neighbors) {    // explore edge (vertex, neighbor)
+            if (neighbor.color == Color.WHITE) {
+                neighbor.parent = vertex;
+                visit(neighbor);
+            }
+        }
+
+        vertex.color = Color.BLACK;    // black vertex; it is finished
+        time++;
+        vertex.finishTime = time;
     }
 }
