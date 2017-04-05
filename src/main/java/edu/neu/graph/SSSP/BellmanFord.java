@@ -17,6 +17,36 @@ import java.util.List;
     O(V*E) running time
 */
 public class BellmanFord {
+    public static void main(String[] args) {
+        Vertex vertex0 = new Vertex(0);
+        Vertex vertex1 = new Vertex(1);
+        Vertex vertex2 = new Vertex(2);
+        Vertex vertex3 = new Vertex(3);
+        Vertex vertex4 = new Vertex(4);
+        Vertex[] vertices = new Vertex[]{vertex0, vertex1, vertex2, vertex3, vertex4};
+        List<Vertex> vertexList = Arrays.asList(vertices);
+
+
+        Edge edge1 = new Edge(vertex0, vertex1, -1);
+        Edge edge2 = new Edge(vertex0, vertex2, 4);
+        Edge edge3 = new Edge(vertex1, vertex2, 3);
+        Edge edge4 = new Edge(vertex1, vertex3, 2);
+        Edge edge5 = new Edge(vertex1, vertex4, 2);
+        Edge edge6 = new Edge(vertex3, vertex2, 5);
+        Edge edge7 = new Edge(vertex3, vertex1, 1);
+        Edge edge8 = new Edge(vertex4, vertex3, -3);
+        Edge[] edges = new Edge[]{edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8};
+        List<Edge> edgeList = Arrays.asList(edges);
+
+        Graph graph = new Graph(vertexList, edgeList);
+        BellmanFord bellmanFord = new BellmanFord();
+        bellmanFord.solve(graph, vertexList.get(0));
+
+        for (Vertex vertex : graph.V) {
+            System.out.println("vertex " + vertex.label + " : " + vertex.distance);
+        }
+    }
+
     public boolean solve(Graph graph, Vertex src) {
         // Step 1: Initialize distances from src to all other
         // vertices as INFINITE, and to itself as 0
@@ -56,35 +86,5 @@ public class BellmanFord {
         }
 
         return true;
-    }
-
-    public static void main(String[] args) {
-        Vertex vertex0 = new Vertex(0);
-        Vertex vertex1 = new Vertex(1);
-        Vertex vertex2 = new Vertex(2);
-        Vertex vertex3 = new Vertex(3);
-        Vertex vertex4 = new Vertex(4);
-        Vertex[] vertices = new Vertex[]{vertex0, vertex1, vertex2, vertex3, vertex4};
-        List<Vertex> vertexList = Arrays.asList(vertices);
-
-
-        Edge edge1 = new Edge(vertex0, vertex1, -1);
-        Edge edge2 = new Edge(vertex0, vertex2, 4);
-        Edge edge3 = new Edge(vertex1, vertex2, 3);
-        Edge edge4 = new Edge(vertex1, vertex3, 2);
-        Edge edge5 = new Edge(vertex1, vertex4, 2);
-        Edge edge6 = new Edge(vertex3, vertex2, 5);
-        Edge edge7 = new Edge(vertex3, vertex1, 1);
-        Edge edge8 = new Edge(vertex4, vertex3, -3);
-        Edge[] edges = new Edge[]{edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8};
-        List<Edge> edgeList = Arrays.asList(edges);
-
-        Graph graph = new Graph(vertexList, edgeList);
-        BellmanFord bellmanFord = new BellmanFord();
-        bellmanFord.solve(graph, vertexList.get(0));
-
-        for (Vertex vertex : graph.V) {
-            System.out.println("vertex " + vertex.label + " : " + vertex.distance);
-        }
     }
 }

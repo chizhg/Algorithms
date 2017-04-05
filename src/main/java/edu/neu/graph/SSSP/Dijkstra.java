@@ -22,6 +22,39 @@ import java.util.Map;
     O(V*lgV+E) running time
  */
 public class Dijkstra {
+    public static void main(String[] args) {
+        Vertex vertex1 = new Vertex(1);
+        Vertex vertex2 = new Vertex(2);
+        Vertex vertex3 = new Vertex(3);
+        Vertex vertex4 = new Vertex(4);
+        Vertex vertex5 = new Vertex(5);
+
+        vertex1.weightMap.put(vertex2, 10);
+        vertex1.weightMap.put(vertex4, 5);
+
+        vertex2.weightMap.put(vertex3, 1);
+        vertex2.weightMap.put(vertex4, 2);
+
+        vertex3.weightMap.put(vertex5, 4);
+
+        vertex4.weightMap.put(vertex2, 3);
+        vertex4.weightMap.put(vertex3, 9);
+        vertex4.weightMap.put(vertex5, 2);
+
+        vertex5.weightMap.put(vertex3, 6);
+
+        Vertex[] vertices = new Vertex[]{vertex1, vertex2, vertex3, vertex4, vertex5};
+        List<Vertex> vertexList = Arrays.asList(vertices);
+        Graph graph = new Graph(vertexList);
+
+        Dijkstra dijkstra = new Dijkstra();
+        dijkstra.solve(graph, vertex1);
+
+        for (Vertex vertex : graph.V) {
+            System.out.println("vertex " + vertex.label + " : " + vertex.distance);
+        }
+    }
+
     public void solve(Graph graph, Vertex src) {
         // Step 1: Initialize distances from src to all other
         // vertices as INFINITE, and to itself as 0
@@ -56,39 +89,6 @@ public class Dijkstra {
                     heap.decreaseKey(neighborNode, vertex.distance + edgeWeight);
                 }
             }
-        }
-    }
-
-    public static void main(String[] args) {
-        Vertex vertex1 = new Vertex(1);
-        Vertex vertex2 = new Vertex(2);
-        Vertex vertex3 = new Vertex(3);
-        Vertex vertex4 = new Vertex(4);
-        Vertex vertex5 = new Vertex(5);
-
-        vertex1.weightMap.put(vertex2, 10);
-        vertex1.weightMap.put(vertex4, 5);
-
-        vertex2.weightMap.put(vertex3, 1);
-        vertex2.weightMap.put(vertex4, 2);
-
-        vertex3.weightMap.put(vertex5, 4);
-
-        vertex4.weightMap.put(vertex2, 3);
-        vertex4.weightMap.put(vertex3, 9);
-        vertex4.weightMap.put(vertex5, 2);
-
-        vertex5.weightMap.put(vertex3, 6);
-
-        Vertex[] vertices = new Vertex[]{vertex1, vertex2, vertex3, vertex4, vertex5};
-        List<Vertex> vertexList = Arrays.asList(vertices);
-        Graph graph = new Graph(vertexList);
-
-        Dijkstra dijkstra = new Dijkstra();
-        dijkstra.solve(graph, vertex1);
-
-        for (Vertex vertex : graph.V) {
-            System.out.println("vertex " + vertex.label + " : " + vertex.distance);
         }
     }
 }
