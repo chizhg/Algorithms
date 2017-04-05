@@ -1,10 +1,8 @@
 package edu.neu.heap.fibonacci_heap;
 
-import edu.neu.heap.IMergeableHeap;
-
 import java.util.*;
 
-public class FibonacciHeap implements IMergeableHeap<Node> {
+public class FibonacciHeap {
     private Node minNode;
     private int nodeNum;
 
@@ -155,14 +153,9 @@ public class FibonacciHeap implements IMergeableHeap<Node> {
         a.mark = false;
     }
 
-    public Node union(IMergeableHeap heap) {
-        if (!(heap instanceof FibonacciHeap)) {
-            return null;
-        }
-
-        FibonacciHeap fibonacciHeap = (FibonacciHeap)heap;
-        minNode = mergeLists(minNode, fibonacciHeap.minNode);
-        nodeNum += fibonacciHeap.nodeNum;
+    public Node union(FibonacciHeap heap) {
+        minNode = mergeLists(minNode, heap.minNode);
+        nodeNum += heap.nodeNum;
         return minNode;
     }
 

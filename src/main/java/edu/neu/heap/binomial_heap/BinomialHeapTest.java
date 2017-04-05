@@ -2,9 +2,6 @@ package edu.neu.heap.binomial_heap;
 
 import java.util.Scanner;
 
-/**
- * Created by HappyMole on 4/3/17.
- */
 public class BinomialHeapTest {
     public static void main(String[] args) {
         BinomialHeap heap = BinomialHeap.makeHeap();

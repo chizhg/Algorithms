@@ -7,8 +7,17 @@ import edu.neu.graph.models.Vertex;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by HappyMole on 4/4/17.
+/*
+    This algorithm is based on the following fact:
+    Shortest paths are always well defined in a dag, since even if there
+    are negative-weight edges, no negative-weight cycles can exist.
+
+    Since if the dag contains a path from vertex u to v, then u must precedes
+    v in the topological order.
+    To find single-source shortest paths, we can just start one pass over
+    the vertices in the topologically sorted order to relax the edges.
+
+    O(V+E) running time
  */
 public class DAG {
     public static void main(String[] args) {

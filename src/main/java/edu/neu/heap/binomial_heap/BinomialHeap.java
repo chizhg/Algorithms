@@ -1,8 +1,6 @@
 package edu.neu.heap.binomial_heap;
 
-import edu.neu.heap.IMergeableHeap;
-
-public class BinomialHeap implements IMergeableHeap<Node> {
+public class BinomialHeap {
     private Node head;
     private int nodeNum;
 
@@ -175,16 +173,11 @@ public class BinomialHeap implements IMergeableHeap<Node> {
     }
 
     // Union two binomial heaps into one and return the head
-    public Node union(IMergeableHeap heap) {
-        if (!(heap instanceof BinomialHeap)) {
-            return null;
-        }
-
-        BinomialHeap binomialHeap = (BinomialHeap)heap;
-        Node newHead = merge(this, binomialHeap);
+    public Node union(BinomialHeap heap) {
+        Node newHead = merge(this, heap);
 
         head = null;
-        binomialHeap.head = null;
+        heap.head = null;
 
         if (newHead == null) {
             return null;
@@ -218,7 +211,7 @@ public class BinomialHeap implements IMergeableHeap<Node> {
             next = curt.sibling;
         }
 
-        nodeNum += binomialHeap.size();
+        nodeNum += heap.size();
         return newHead;
     }
 

@@ -2,9 +2,6 @@ package edu.neu.heap.fibonacci_heap;
 
 import java.util.Scanner;
 
-/**
- * Created by HappyMole on 4/3/17.
- */
 public class FibonacciHeapTest {
     public static void main(String[] args) {
         FibonacciHeap heap = FibonacciHeap.makeHeap();

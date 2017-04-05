@@ -2,70 +2,51 @@ package edu.neu.hash;
 
 import java.util.*;
 
-class Position {
-    int row;
-    int col;
-
-    public Position(int row, int col) {
-        this.row = row;
-        this.col = col;
-    }
-}
-
-class Node {
-    String key;
-    List<Position> value;
+class Node<K, V> {
+    K key;
+    V value;
     Node next;
 
-    public Node(String key, List<Position> value) {
+    public Node(K key, V value) {
         this.key = key;
         this.value = value;
     }
 }
 
-public class HashTable {
-    private Node[] buckets;
+public class HashTable<K, V> {
+    private Node<K, V>[] buckets;
     private int capacity;
     private int size;
-    private Set<String> wordSet;
+    private Set<K> keySet;
 
     public HashTable() {
         buckets = new Node[10];
         capacity = 10;
         size = 0;
-        wordSet = new HashSet<>();
+        keySet = new HashSet<>();
     }
 
-    // insert the key into the map with the given value.
-    // if the key has already been in the map, replace the value.
-    public void insert(String key, List<Position> value) {
-        Position pos = parsePos(key);
-        key = parseWord(key);
-        value.add(pos);
-        put(key, value);
-    }
-
-    private void put(String key, List<Position> posList) {
-        wordSet.add(key);
+    private void put(K key, V value) {
+        keySet.add(key);
 
         int bucketPos = getBucketPos(key);
         Node head = buckets[bucketPos];
 
         if (head == null) {
-            buckets[bucketPos] = new Node(key, posList);
+            buckets[bucketPos] = new Node(key, value);
             size++;
         } else {
             Node curt = head;
             while (curt != null) {
                 if (curt.key.equals(key)) {
-                    curt.value = posList;
+                    curt.value = value;
                     break;
                 }
                 curt = curt.next;
             }
 
             if (curt == null) {
-                Node newHead = new Node(key, posList);
+                Node newHead = new Node(key, value);
                 newHead.next = head;
                 buckets[bucketPos] = newHead;
                 size++;
@@ -73,10 +54,10 @@ public class HashTable {
         }
 
         if ((1.0 * size) / capacity > 0.7) {
-            Node[] oriBuckets = buckets;
+            Node<K, V>[] oriBuckets = buckets;
             capacity *= 2;
             buckets = new Node[capacity];
-            for (Node node : oriBuckets) {
+            for (Node<K, V> node : oriBuckets) {
                 while (node != null) {
                     put(node.key, node.value);
                     node = node.next;
@@ -85,10 +66,7 @@ public class HashTable {
         }
     }
 
-    // delete the key from the map, and return the position list of the word.
-    // if the key is not in the map, return null.
-    public List<Position> delete(String key) {
-        key = parseWord(key);
+    public boolean remove(K key) {
         int bucketPos = getBucketPos(key);
         Node head = buckets[bucketPos];
         Node dummyHead = new Node("", new LinkedList<>());
@@ -97,43 +75,22 @@ public class HashTable {
         Node curt = dummyHead;
         while (curt.next != null) {
             if (curt.next.key.equals(key)) {
-                List<Position> delValue = curt.next.value;
                 curt.next = curt.next.next;
                 buckets[bucketPos] = dummyHead.next;
-                wordSet.remove(key);
+                keySet.remove(key);
                 size--;
-                return delValue;
+                return true;
             }
             curt = curt.next;
         }
 
-        return null;
-    }
-
-    // Increase the value in the map for the given key and return the updated value.
-    // If the key is not in the map, return null.
-    public List<Position> increase(String key) {
-        Position pos = parsePos(key);
-        key = parseWord(key);
-
-        int bucketPos = getBucketPos(key);
-        Node head = buckets[bucketPos];
-        while (head != null) {
-            if (head.key.equals(key)) {
-                head.value.add(pos);
-                return head.value;
-            }
-            head = head.next;
-        }
-
-        return null;
+        return false;
     }
 
     // Find the value for a key. If the key is not in the map, return null.
-    public List<Position> find(String key) {
-        key = parseWord(key);
+    public V get(K key) {
         int bucketPos = getBucketPos(key);
-        Node head = buckets[bucketPos];
+        Node<K, V> head = buckets[bucketPos];
         while (head != null) {
             if (head.key.equals(key)) {
                 return head.value;
@@ -145,16 +102,22 @@ public class HashTable {
     }
 
     // return all keys in this map
-    public Set<String> listAllKeys() {
-        return wordSet;
+    public Set<K> keySet() {
+        return keySet;
     }
 
-    private int getBucketPos(String key) {
+    private int getBucketPos(K key) {
         long hash = hashCode(key);
         int pos = (int) (hash % capacity);
         return pos;
     }
 
+    private int hashCode(Object key) {
+        int h;
+        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+    }
+
+    /*
     // use ELF hash to compute the hash value for a string
     private long hashCode(String s) {
         long hash = 0;
@@ -168,16 +131,5 @@ public class HashTable {
         }
 
         return hash;
-    }
-
-    private String parseWord(String key) {
-        return key.split(" ")[0];
-    }
-
-    private Position parsePos(String key) {
-        String[] arr = key.split(" ");
-        int row = Integer.parseInt(arr[1].trim());
-        int col = Integer.parseInt(arr[2].trim());
-        return new Position(row, col);
-    }
+    } */
 }
