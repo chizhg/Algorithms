@@ -7,6 +7,11 @@ import edu.neu.heap.fibonacci_heap.Node;
 
 import java.util.*;
 
+/*
+    Greedy
+
+
+ */
 public class Prim {
     public static void main(String[] args) {
         /*

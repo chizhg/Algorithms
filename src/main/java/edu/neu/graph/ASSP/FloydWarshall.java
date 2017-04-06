@@ -2,6 +2,16 @@ package edu.neu.graph.ASSP;
 
 import java.util.Arrays;
 
+/*
+    Dynamic Programming
+
+    The Floyd-Warshall algorithm considers the intermediate vertices of
+    a shortest path, where an intermediate vertex of a simple path
+    p={v1,v2,...,vm} is any vertex of p other than v1 or vm, that is,
+    any vertex in the set {v2,v3,...,v(m-1)}.
+
+    O(n^3) running time
+ */
 public class FloydWarshall {
     public static final int INFI = Integer.MAX_VALUE;
     public static final int NIL = -1;
@@ -21,6 +31,14 @@ public class FloydWarshall {
                          {INFI, 0, 3, INFI},
                          {INFI, INFI, 0, 1},
                          {INFI, INFI, INFI, 0}};
+
+//        int[][] graph = {{0, INFI, INFI, -4, -1, INFI},
+//                         {1, 0, INFI, 2, INFI, INFI},
+//                         {INFI, 2, 0, INFI, INFI, -8},
+//                         {-4, INFI, INFI, 0, 3, INFI},
+//                         {INFI, 7, INFI, INFI, 0, INFI},
+//                         {INFI, 5, 10, INFI, INFI, 0}};
+
         int n = graph.length;
         // initial distance is the same as the graph:
         // - initial values of shortest distances are based on shortest paths
@@ -77,7 +95,7 @@ public class FloydWarshall {
                distances between all pairs of vertices such that
                the shortest distances consider only the vertices in
                set {0, 1, 2, .. k-1} as intermediate vertices.
-          ----> After the end of a iteration, vertex no. k is added
+          ----> After the end of a iteration, vertex k is added
                 to the set of intermediate vertices and the set
                 becomes {0, 1, 2, .. k} */
         for (int k = 0; k < n; k++) {

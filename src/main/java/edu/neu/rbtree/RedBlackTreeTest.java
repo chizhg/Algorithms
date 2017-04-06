@@ -1,8 +1,5 @@
 package edu.neu.rbtree;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -13,41 +10,6 @@ public class RedBlackTreeTest {
 
     public RedBlackTreeTest() {
         this.redBlackTree = new RedBlackTree();
-    }
-
-    public void loadData(String fileName) {
-        BufferedReader reader = null;
-        List<Integer> list = new ArrayList<>();
-
-        try {
-            reader = new BufferedReader(new FileReader(fileName));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] nums = line.split(",");
-                for (String num : nums) {
-                    list.add(Integer.parseInt(num.trim()));
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (reader != null) {
-                    reader.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        for (int num : list) {
-            System.out.println("#######load " + num + "########");
-            redBlackTree.insert(new TreeNode(num));
-            RedBlackTreeHPrinter.printTree(redBlackTree.root);
-            System.out.println("\n\n");
-        }
     }
 
     public void listenToConsole() {
@@ -117,7 +79,6 @@ public class RedBlackTreeTest {
 
     public static void main(String[] args) {
         RedBlackTreeTest redBlackTreeTest = new RedBlackTreeTest();
-        redBlackTreeTest.loadData("/Users/HappyMole/Desktop/IDEA Workspace/Algorithms/src/main/java/edu/neu/rbtree/input");
         redBlackTreeTest.listenToConsole();
     }
 }

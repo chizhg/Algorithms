@@ -2,6 +2,13 @@ package edu.neu.heap.fibonacci_heap;
 
 import java.util.*;
 
+/*
+    insert:     O(1)
+    union:      O(1)
+    find-min:   O(1)
+    delete:     O(logn)
+    delete-min: O(logn)
+ */
 public class FibonacciHeap {
     private Node minNode;
     private int nodeNum;

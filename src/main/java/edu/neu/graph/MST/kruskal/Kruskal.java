@@ -8,6 +8,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/*
+    Greedy
+
+
+
+
+ */
 public class Kruskal {
     public static void main(String[] args) {
         /*

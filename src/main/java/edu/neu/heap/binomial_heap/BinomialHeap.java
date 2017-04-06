@@ -1,5 +1,12 @@
 package edu.neu.heap.binomial_heap;
 
+/*
+    insert:     O(logn)
+    union:      O(logn)
+    find-min:   O(logn)
+    delete:     O(logn)
+    delete-min: O(logn)
+ */
 public class BinomialHeap {
     private Node head;
     private int nodeNum;
@@ -95,7 +102,7 @@ public class BinomialHeap {
         }
 
         node.key = newKey;
-        bubbleUp(node, false);
+        bubbleUp(node);
     }
 
     public void delete(Node node) {
@@ -103,9 +110,9 @@ public class BinomialHeap {
         extractMin();
     }
 
-    private Node bubbleUp(Node node, boolean toRoot) {
+    private Node bubbleUp(Node node) {
         Node parent = node.parent;
-        while (parent != null && (toRoot || node.key < parent.key)) {
+        while (parent != null && node.key < parent.key) {
             int temp = node.key;
             node.key = parent.key;
             parent.key = temp;
