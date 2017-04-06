@@ -80,11 +80,21 @@ public class FibonacciHeap {
         return null;
     }
 
+    /*
+    insert into the root list (become the left sibling of the root)
+    nodeNum + 1
+    */
     public void insert(Node node) {
         minNode = mergeLists(minNode, node);
         nodeNum++;
     }
 
+
+    /*
+    Add the minimum node's children into the root list and remove the minimum node.
+    Then consolidate the root list by linking roots of equal degree until
+      at most one root remains of each degree.
+     */
     public Node extractMin() {
         Node extractedMin = minNode;
         if (extractedMin != null) {
@@ -97,14 +107,14 @@ public class FibonacciHeap {
                     curt = curt.right;
                 }
             }
+            // merge the children of the extracted minimum node with the root list
+            minNode = mergeLists(minNode, extractedMin.child);
 
             // the node after the minNode becomes the tempMinNode
             Node tempMinNode = (minNode.right == minNode ? null : minNode.right);
             // remove minNode node
             removeNodeFromList(minNode);
             nodeNum--;
-            // merge the children of the extracted minimum node with the root list
-            minNode = mergeLists(tempMinNode, extractedMin.child);
 
             if (tempMinNode != null) {
                 minNode = tempMinNode;
@@ -115,6 +125,15 @@ public class FibonacciHeap {
         return extractedMin;
     }
 
+    /*
+    Repeatedly execute the following steps until every root in the root list
+       has a distinct degree value:
+    1. Find two roots x and y in the root list with the same degree. Without
+       loss of generality, let x.key<=y.key.
+    2. Link y to x: remove y from the root list, and make y a child of x by
+       calling the FIB-HEAP-LINK procedure. This procedure increments the
+       attribute x.degree and clears the mark on y.
+     */
     private void consolidate() {
         int size = nodeNum + 1;
         Node[] array = new Node[size];
@@ -160,12 +179,22 @@ public class FibonacciHeap {
         a.mark = false;
     }
 
+    /*
+    concatenate the root list of these two heaps, set the minmum node
+         as the new minNode
+    add the two heaps' nodeNum together
+    */
     public Node union(FibonacciHeap heap) {
         minNode = mergeLists(minNode, heap.minNode);
         nodeNum += heap.nodeNum;
         return minNode;
     }
 
+    /*
+    If the srcNode is root or its key >= its parent's key, then no structural
+       changes need occur, since min-heap order has not been violated.
+    Otherwise perform cut and cascadeCut operations.
+     */
     public void decreaseKey(Node srcNode, int destKey) {
         if (destKey > srcNode.key) {
             throw new IllegalArgumentException("new key is greater than current key");
@@ -183,6 +212,11 @@ public class FibonacciHeap {
         }
     }
 
+    /*
+    remove the node from its sibling list
+    merge the node with the root list
+    set its mark to false
+     */
     private void cut(Node node, Node parent) {
         if (node.right == node) {
             parent.child = null;
@@ -195,6 +229,10 @@ public class FibonacciHeap {
         node.mark = false;
     }
 
+    /*
+    if the node is marked and is not the root, cut it from the heap
+    recursively repeat this process until arriving at the root or it is not marked
+     */
     private void cascadingCut(Node node) {
         Node parent = node.parent;
         if (parent != null) {

@@ -6,6 +6,7 @@ import java.util.List;
 public class Node {
     public int label;
     public int key;
+    // number of children in the child list
     int degree;
 
     Node parent;

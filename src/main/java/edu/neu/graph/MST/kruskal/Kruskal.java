@@ -10,10 +10,14 @@ import java.util.List;
 
 /*
     Greedy
+    In Kruskal's algorithm, the intermediate set A is a forest whose vertices are all
+    those of the given graph.
+    The same edge added to A is always a least-weight edge in the graph that connects
+    two distinct components.
 
+    The process of building a MST with Kruskal is based on edges.
 
-
-
+    O(ElogE) running time
  */
 public class Kruskal {
     public static void main(String[] args) {

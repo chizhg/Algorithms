@@ -9,8 +9,12 @@ import java.util.*;
 
 /*
     Greedy
+    In Prim's algorithm, the set A forms a single tree.
+    The safe edge added to A is always a least-weight edge connecting the tree to a vertex not in the tree.
 
+    The process of building a MST with Prim is based on vertices.
 
+    O(E+VlogV) running time by using Fibonacci heap.
  */
 public class Prim {
     public static void main(String[] args) {

@@ -29,7 +29,10 @@ class NodeListIterator implements Iterator<Node> {
 public class Node {
     public int label;
     public int key;
+    // whether this node has lost a child since the last time
+    // x was made the child of another node
     boolean mark;
+    // number of children in the child list
     int degree;
     Node parent;
     Node child;
