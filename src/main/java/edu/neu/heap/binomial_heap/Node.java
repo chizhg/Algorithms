@@ -1,14 +1,11 @@
 package edu.neu.heap.binomial_heap;
 
+import edu.neu.heap.BaseNode;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node {
-    public int label;
-    public int key;
-    // number of children in the child list
-    int degree;
-
+public class Node extends BaseNode {
     Node parent;
     Node child;
     Node sibling;

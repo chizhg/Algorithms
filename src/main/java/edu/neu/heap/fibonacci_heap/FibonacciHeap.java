@@ -1,5 +1,7 @@
 package edu.neu.heap.fibonacci_heap;
 
+import edu.neu.heap.IMergableHeap;
+
 import java.util.*;
 
 /*
@@ -9,21 +11,17 @@ import java.util.*;
     delete:     O(logn)
     delete-min: O(logn)
  */
-public class FibonacciHeap {
+public class FibonacciHeap implements IMergableHeap<Node> {
     private Node minNode;
     private int nodeNum;
 
-    private FibonacciHeap() {
+    public FibonacciHeap() {
         minNode = null;
         nodeNum = 0;
     }
 
-    public static FibonacciHeap makeHeap() {
-        return new FibonacciHeap();
-    }
-
     public static void main(String[] args) {
-        FibonacciHeap fibonacciHeap = makeHeap();
+        IMergableHeap fibonacciHeap = new FibonacciHeap();
         for (int i = 0; i < 5; i++) {
             fibonacciHeap.insert(new Node(i));
         }
@@ -31,7 +29,7 @@ public class FibonacciHeap {
         fibonacciHeap.extractMin();
 //        fibonacciHeap.print();
 //        fibonacciHeap.decreaseKey(fibonacciHeap.search(4), -1);
-        fibonacciHeap.delete(fibonacciHeap.search(4, true));
+        fibonacciHeap.delete(fibonacciHeap.searchByVal(4));
         fibonacciHeap.print();
     }
 

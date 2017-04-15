@@ -103,7 +103,7 @@ public class Prim {
         }
 
         startNode.key = 0;
-        FibonacciHeap heap = FibonacciHeap.makeHeap();
+        FibonacciHeap heap = new FibonacciHeap();
         for (Vertex vertex : graph.V) {
             heap.insert(new Node(vertex.label, vertex.key));
         }

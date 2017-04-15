@@ -68,7 +68,7 @@ public class Dijkstra {
 
         // Step 2: initialize fibonacci heap, and insert all vertex
         // into the heap
-        FibonacciHeap heap = FibonacciHeap.makeHeap();
+        FibonacciHeap heap = new FibonacciHeap();
         for (int i = 0; i < graph.V.size(); i++) {
             Vertex vertex = graph.V.get(i);
             heap.insert(new Node(vertex.label, vertex.distance));

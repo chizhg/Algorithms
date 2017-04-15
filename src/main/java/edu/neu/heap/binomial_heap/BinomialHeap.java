@@ -1,5 +1,7 @@
 package edu.neu.heap.binomial_heap;
 
+import edu.neu.heap.IMergableHeap;
+
 /*
     insert:     O(logn)
     union:      O(logn)
@@ -7,21 +9,17 @@ package edu.neu.heap.binomial_heap;
     delete:     O(logn)
     delete-min: O(logn)
  */
-public class BinomialHeap {
+public class BinomialHeap implements IMergableHeap<Node> {
     private Node head;
     private int nodeNum;
 
-    private BinomialHeap() {
+    public BinomialHeap() {
         head = null;
         nodeNum = 0;
     }
 
-    public static BinomialHeap makeHeap() {
-        return new BinomialHeap();
-    }
-
     public static void main(String[] args) {
-        BinomialHeap binomialHeap = makeHeap();
+        IMergableHeap binomialHeap = new BinomialHeap();
         for (int i = 0; i < 109; i++) {
             binomialHeap.insert(new Node(i));
         }
@@ -90,7 +88,7 @@ public class BinomialHeap {
     }
 
     public void insert(Node node) {
-        BinomialHeap tempHeap = makeHeap();
+        BinomialHeap tempHeap = new BinomialHeap();
         tempHeap.head = node;
         head = union(tempHeap);
         nodeNum++;
@@ -164,7 +162,7 @@ public class BinomialHeap {
             newHead = child;
             child = next;
         }
-        BinomialHeap newHeap = makeHeap();
+        BinomialHeap newHeap = new BinomialHeap();
         newHeap.head = newHead;
 
         // Union the heaps and set its head as this.head

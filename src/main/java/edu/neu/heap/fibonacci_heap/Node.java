@@ -1,5 +1,7 @@
 package edu.neu.heap.fibonacci_heap;
 
+import edu.neu.heap.BaseNode;
+
 import java.util.*;
 
 class NodeListIterator implements Iterator<Node> {
@@ -26,9 +28,7 @@ class NodeListIterator implements Iterator<Node> {
     }
 }
 
-public class Node {
-    public int label;
-    public int key;
+public class Node extends BaseNode {
     // whether this node has lost a child since the last time
     // x was made the child of another node
     boolean mark;
@@ -87,9 +87,5 @@ public class Node {
         }
 
         return nodeList;
-    }
-
-    public String toString() {
-        return Integer.toString(key);
     }
 }
