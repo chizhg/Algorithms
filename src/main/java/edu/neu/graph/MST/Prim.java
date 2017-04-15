@@ -1,4 +1,4 @@
-package edu.neu.graph.MST.prim;
+package edu.neu.graph.MST;
 
 import edu.neu.graph.models.Graph;
 import edu.neu.graph.models.Vertex;
