@@ -14,7 +14,7 @@ import java.util.Queue;
     4. Keep performing the step 2 and 3 until there is no augmenting path
  */
 public class EdmondsKarp {
-    public int fordFulkerson(int[][] graph, int src, int dest) {
+    public int doEdmondsKarp(int[][] graph, int src, int dest) {
         int vertexNum = graph.length;
         /*
             Create a residual graph and fill the residual graph with
@@ -80,5 +80,19 @@ public class EdmondsKarp {
         }
 
         return visited[dest];
+    }
+
+    public static void main(String[] args) {
+        int[][] graph = new int[6][6];
+        graph[0][1] = 2;
+        graph[0][2] = 9;
+        graph[1][2] = 1;
+        graph[2][3] = 2;
+        graph[2][4] = 7;
+        graph[3][5] = 7;
+        graph[4][5] = 4;
+
+        EdmondsKarp edmondsKarp = new EdmondsKarp();
+        System.out.println(edmondsKarp.doEdmondsKarp(graph, 0, 5));
     }
 }
