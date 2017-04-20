@@ -37,6 +37,32 @@ class Graph {
 }
 
 public class PushRelabel {
+    public static void main(String[] args) {
+        Vertex s = new Vertex(0);
+        Vertex v1 = new Vertex(1);
+        Vertex v2 = new Vertex(2);
+        Vertex v3 = new Vertex(3);
+        Vertex v4 = new Vertex(4);
+        Vertex t = new Vertex(5);
+        ArrayList<Vertex> vertices = new ArrayList<>(Arrays.asList(s, v1, v2, v3, v4, t));
+
+        Edge sv1 = new Edge(0, 1, 16, 0);
+        Edge sv2 = new Edge(0, 2, 13, 0);
+        Edge v2v1 = new Edge(2, 1, 4, 0);
+        Edge v1v3 = new Edge(1, 3, 12, 0);
+        Edge v3v2 = new Edge(3, 2, 9, 0);
+        Edge v2v4 = new Edge(2, 4, 14, 0);
+        Edge v4v3 = new Edge(4, 3, 7, 0);
+        Edge v3t = new Edge(3, 5, 20, 0);
+        Edge v4t = new Edge(4, 5, 4, 0);
+        ArrayList<Edge> edges = new ArrayList<>(Arrays.asList(sv1, sv2, v2v1, v1v3, v3v2, v2v4, v4v3, v3t, v4t));
+
+        Graph graph = new Graph(vertices, edges);
+
+        PushRelabel pushRelabel = new PushRelabel();
+        System.out.println(pushRelabel.doPushRelabel(graph, s, t));
+    }
+
     public int doPushRelabel(Graph graph, Vertex src, Vertex dest) {
         preflow(graph, src);
 
@@ -51,7 +77,6 @@ public class PushRelabel {
         // the destination vertex's excess flow would be the final maximum flow
         return dest.excessFlow;
     }
-
 
     private void preflow(Graph graph, Vertex src) {
         List<Vertex> vertices = graph.vertices;
@@ -166,31 +191,5 @@ public class PushRelabel {
             }
         }
         return -1;
-    }
-
-    public static void main(String[] args) {
-        Vertex s = new Vertex(0);
-        Vertex v1 = new Vertex(1);
-        Vertex v2 = new Vertex(2);
-        Vertex v3 = new Vertex(3);
-        Vertex v4 = new Vertex(4);
-        Vertex t = new Vertex(5);
-        ArrayList<Vertex> vertices = new ArrayList<>(Arrays.asList(s, v1, v2, v3, v4, t));
-
-        Edge sv1 = new Edge(0, 1, 16, 0);
-        Edge sv2 = new Edge(0, 2, 13, 0);
-        Edge v2v1 = new Edge(2, 1, 4, 0);
-        Edge v1v3 = new Edge(1, 3, 12, 0);
-        Edge v3v2 = new Edge(3, 2, 9, 0);
-        Edge v2v4 = new Edge(2, 4, 14, 0);
-        Edge v4v3 = new Edge(4, 3, 7, 0);
-        Edge v3t = new Edge(3, 5, 20, 0);
-        Edge v4t = new Edge(4, 5, 4, 0);
-        ArrayList<Edge> edges = new ArrayList<>(Arrays.asList(sv1, sv2, v2v1, v1v3, v3v2, v2v4, v4v3, v3t, v4t));
-
-        Graph graph = new Graph(vertices, edges);
-
-        PushRelabel pushRelabel = new PushRelabel();
-        System.out.println(pushRelabel.doPushRelabel(graph, s, t));
     }
 }

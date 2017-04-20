@@ -1,8 +1,5 @@
 package edu.neu.dp;
 
-/**
- * Created by HappyMole on 2/18/17.
- */
 public class MatrixChainOrder {
     int[][] m;
     int[][] s;
