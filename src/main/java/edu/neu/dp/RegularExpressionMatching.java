@@ -21,6 +21,13 @@ package edu.neu.dp;
                   |- dp[i-1][j-1] && (si=pj || pj='.')    if pj != '*'
  */
 public class RegularExpressionMatching {
+    public static void main(String[] args) {
+        RegularExpressionMatching r = new RegularExpressionMatching();
+        String s = "aab";
+        String p = "c*a*b";
+        System.out.println(r.solve(s, p));
+    }
+
     public boolean solve(String s, String p) {
         int m = s.length(), n = p.length();
         boolean[][] dp = new boolean[m + 1][n + 1];

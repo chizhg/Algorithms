@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-    Problem Description:
     Given a rod of length n inches and a table of prices pi for i = 1, 2, ..., n,
     determine the maximum revenue rn obtainable by cutting up the rod and selling
     the pieces.

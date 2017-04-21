@@ -26,18 +26,12 @@ public class LongestPalindromeSubsequence {
     public int[][] solve(String s) {
         int n = s.length();
         int[][] dp = new int[n][n];
-        for (int i = 0; i < n; i++) {
-            dp[i][i] = 1;
-        }
 
-        for (int i = n - 2; i >= 0; i--) {
+        for (int i = n - 1; i >= 0; i--) {
+            dp[i][i] = 1;
             for (int j = i + 1; j < n; j++) {
                 if (s.charAt(i) == s.charAt(j)) {
-                    if (j == i + 1) {
-                        dp[i][j] = 2;
-                    } else {
-                        dp[i][j] = dp[i + 1][j - 1] + 2;
-                    }
+                    dp[i][j] = dp[i + 1][j - 1] + 2;
                 } else {
                     dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
                 }
