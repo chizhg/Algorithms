@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
+    Problem Description:
+    Given a rod of length n inches and a table of prices pi for i = 1, 2, ..., n,
+    determine the maximum revenue rn obtainable by cutting up the rod and selling
+    the pieces.
+ */
+
+/*
     1. Optimal substructure:
        Let n be the rod length and {x1,x2,...,xm} be lengths of cut rods in the optimal solution.
         {x1,x2,...,xm-1} must be the optimal solution for a rod of length n-xm

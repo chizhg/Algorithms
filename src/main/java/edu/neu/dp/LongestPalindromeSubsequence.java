@@ -15,6 +15,14 @@ package edu.neu.dp;
                   |- max(dp[i+1,j], dp[i][j-1])  if xi!=xj
  */
 public class LongestPalindromeSubsequence {
+    public static void main(String[] args) {
+        LongestPalindromeSubsequence l = new LongestPalindromeSubsequence();
+        String s = "rvamdcebcxabur";
+        int[][] dp = l.solve(s);
+        System.out.println("The length of the LPS is: " + dp[0][s.length() - 1]);
+        l.printLPS(s, dp);
+    }
+
     public int[][] solve(String s) {
         int n = s.length();
         int[][] dp = new int[n][n];
@@ -67,13 +75,5 @@ public class LongestPalindromeSubsequence {
             result.append(s.charAt(left));
         }
         System.out.println("The LPS for this string is: " + result.toString());
-    }
-
-    public static void main(String[] args) {
-        LongestPalindromeSubsequence l = new LongestPalindromeSubsequence();
-        String s = "rvamdcebcxabur";
-        int[][] dp = l.solve(s);
-        System.out.println("The length of the LPS is: " + dp[0][s.length() - 1]);
-        l.printLPS(s, dp);
     }
 }
