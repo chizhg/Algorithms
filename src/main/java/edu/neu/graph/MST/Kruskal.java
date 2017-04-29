@@ -8,9 +8,9 @@ import java.util.*;
 
 /*
     Greedy
-    In Kruskal's algorithm, the intermediate set A is a forest whose vertices are all
-    those of the given graph.
-    The same edge added to A is always a least-weight edge in the graph that connects
+    In Kruskal's algorithm, the intermediate set A is a forest whose roots are all
+    vertices of the given graph.
+    The edge added to A is always a least-weight edge in the graph that connects
     two distinct components.
 
     The process of building a MST with Kruskal is based on edges.

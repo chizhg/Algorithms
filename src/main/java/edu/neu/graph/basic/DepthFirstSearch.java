@@ -6,9 +6,6 @@ import edu.neu.graph.models.Vertex;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by HappyMole on 4/1/17.
- */
 public class DepthFirstSearch {
     int time = 0;
 

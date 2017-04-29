@@ -4,9 +4,6 @@ import edu.neu.graph.models.Vertex;
 
 import java.util.*;
 
-/**
- * Created by HappyMole on 4/1/17.
- */
 public class TopologicalSort {
     public static void main(String[] args) {
         Vertex vertex1 = new Vertex(1);

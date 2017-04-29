@@ -153,7 +153,7 @@ public class PushRelabel {
         int minNeighborHeight = Integer.MAX_VALUE;
         for (Edge edge : edges) {
             if (edge.u == u) {
-                // cannot relabel is flow is equal to capacity
+                // cannot relabel if flow is equal to capacity
                 if (edge.flow == edge.capacity) {
                     continue;
                 }

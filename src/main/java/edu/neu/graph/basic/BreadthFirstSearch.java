@@ -6,9 +6,6 @@ import edu.neu.graph.models.Vertex;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- * Created by HappyMole on 4/1/17.
- */
 public class BreadthFirstSearch {
     public static void main(String[] args) {
         Vertex vertex1 = new Vertex(1);

@@ -1,13 +1,7 @@
 package edu.neu.graph.models;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-/**
- * Created by HappyMole on 4/3/17.
- */
 public class Vertex {
     // all vertices must have labels
     public int label;

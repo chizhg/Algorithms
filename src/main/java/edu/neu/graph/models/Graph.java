@@ -2,9 +2,6 @@ package edu.neu.graph.models;
 
 import java.util.List;
 
-/**
- * Created by HappyMole on 4/3/17.
- */
 public class Graph {
     public List<Vertex> V;
     public List<Edge> E;
