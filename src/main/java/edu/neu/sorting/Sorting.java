@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Sorting {
-
+    // repeatedly bubble the largest element in a range to the end
     public static int[] bubbleSort(int a[]) {
         int len = a.length;
 
@@ -20,6 +20,7 @@ public class Sorting {
         return a;
     }
 
+    // repeatedly select the smallest element in a range, and swap with the start
     public static int[] selectionSort(int a[]) {
         int len = a.length;
         for (int i = 0; i < len; i++) {
@@ -34,6 +35,7 @@ public class Sorting {
         return a;
     }
 
+    // repeatedly find the position for a number in a sorted array, and insert it into that position
     public static int[] insertionSort(int a[]) {
         int len = a.length;
         for (int i = 1; i < len; i++) {
@@ -54,8 +56,11 @@ public class Sorting {
         a[toIndex] = tmp;
     }
 
-    // O(n) space
-    // O(nlogn) time complexity
+    /*
+        1. divide the array into two parts, recursively call the same method on both of them
+        2. repeat step 1 until the array can not be divided (only has one element)
+        3. merge the two subarrays in the "back path"
+     */
     public static int[] mergeSort(int a[]) {
         int[] tmp = new int[a.length];
         mergeSort(a, 0, a.length - 1, tmp);
@@ -67,7 +72,6 @@ public class Sorting {
             int mid = (low + high) / 2;
             mergeSort(a, low, mid, tmp);
             mergeSort(a, mid + 1, high, tmp);
-//            System.out.println(low + "," + mid + "," + high);
             merge(a, low, mid, high, tmp);
         }
     }
@@ -97,8 +101,12 @@ public class Sorting {
         }
     }
 
-    // O(1) space
-    // O(nlogn) time complexity in average, O(n^2) in the worst case
+    /*
+        1. partition an array based on a pivot
+           (place all elements smaller than the pivot left, and others right)
+        2. recursively call the same method on the left and right subarray cut by the pivot
+        3. repeat the process until the array cannot be partitioned (only has one element)
+     */
     public static int[] quickSort(int[] a) {
         quickSort(a, 0, a.length - 1);
         return a;
