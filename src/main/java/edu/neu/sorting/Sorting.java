@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Sorting {
     // repeatedly bubble the largest element in a range to the end
-    public static int[] bubbleSort(int a[]) {
+    public static void bubbleSort(int a[]) {
         int len = a.length;
 
         for (int i = len - 1; i > 0; i--) {
@@ -17,11 +17,10 @@ public class Sorting {
                 }
             }
         }
-        return a;
     }
 
     // repeatedly select the smallest element in a range, and swap with the start
-    public static int[] selectionSort(int a[]) {
+    public static void selectionSort(int a[]) {
         int len = a.length;
         for (int i = 0; i < len; i++) {
             int smallestIndex = i;
@@ -32,11 +31,10 @@ public class Sorting {
             }
             swap(a, i, smallestIndex);
         }
-        return a;
     }
 
     // repeatedly find the position for a number in a sorted array, and insert it into that position
-    public static int[] insertionSort(int a[]) {
+    public static void insertionSort(int a[]) {
         int len = a.length;
         for (int i = 1; i < len; i++) {
             int num = a[i];
@@ -47,8 +45,32 @@ public class Sorting {
             }
             a[j + 1] = num;
         }
-        return a;
     }
+
+
+    public static void shellSort(int a[]) {
+        int inner, outer;
+        int temp;
+
+        int h = 1;
+        while (h <= a.length / 3) {
+            h = h * 3 + 1;
+        }
+        while (h > 0) {
+            for (outer = h; outer < a.length; outer++) {
+                temp = a[outer];
+                inner = outer;
+
+                while (inner > h - 1 && a[inner - h] >= temp) {
+                    a[inner] = a[inner - h];
+                    inner -= h;
+                }
+                a[inner] = temp;
+            }
+            h = (h - 1) / 3;
+        }
+    }
+
 
     private static void swap(int a[], int fromIndex, int toIndex) {
         int tmp = a[fromIndex];
@@ -61,10 +83,9 @@ public class Sorting {
         2. repeat step 1 until the array can not be divided (only has one element)
         3. merge the two subarrays in the "back path"
      */
-    public static int[] mergeSort(int a[]) {
+    public static void mergeSort(int a[]) {
         int[] tmp = new int[a.length];
         mergeSort(a, 0, a.length - 1, tmp);
-        return a;
     }
 
     private static void mergeSort(int a[], int low, int high, int tmp[]) {
@@ -107,9 +128,8 @@ public class Sorting {
         2. recursively call the same method on the left and right subarray cut by the pivot
         3. repeat the process until the array cannot be partitioned (only has one element)
      */
-    public static int[] quickSort(int[] a) {
+    public static void quickSort(int[] a) {
         quickSort(a, 0, a.length - 1);
-        return a;
     }
 
     private static void quickSort(int[] a, int low, int high) {
@@ -300,6 +320,7 @@ public class Sorting {
 //        heapSort(a);
 //        countingSort(a);
 //        bucketSort(a);
+//        shellSort(a);
         printArray(a);
         int i = 1;
         while (i < a.length) {
